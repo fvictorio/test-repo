@@ -14,7 +14,7 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
       - name: Search comments
-        uses: fvictorio/check-changeset@2768f4cb45ca39271acf17f0ff78a959f31f1df2
+        uses: fvictorio/check-changeset@e6d87a6265142db1a92dae8f231581f149e8b786
         id: search_comments
         with:
           issue-number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
