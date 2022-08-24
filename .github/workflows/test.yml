@@ -12,10 +12,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
-      - name: Check changeset
+      - name: Search comments
         uses: fvictorio/check-changeset@2768f4cb45ca39271acf17f0ff78a959f31f1df2
-        id: check_changeset
+        id: search_comments
         with:
           issue-number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
           body-includes: foobar
-        run: echo ${{ steps.check_changeset.outputs.comment-id }}
+      - name: Check changeset
+        run: echo ${{ steps.search_comments.outputs.comment-id }}
