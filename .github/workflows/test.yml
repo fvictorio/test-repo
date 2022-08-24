@@ -19,7 +19,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: search_comments
         with:
-          issue-number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          issue-number: ${{ github.event.pull_request.number }}
           body-includes: foobar
       - name: Check changeset
         run: echo ${{ steps.search_comments.outputs.comment-id }}
