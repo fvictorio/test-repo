@@ -20,5 +20,4 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body-includes: foobar
       - name: Check changeset
-        run: test -n ${{ steps.search_comments.outputs.comment-id }}
-
+        run: test -n "${{ steps.search_comments.outputs.comment-id }}"
