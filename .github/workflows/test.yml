@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Comment on lint failure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: "refs/pull/${{ github.event.number }}/merge"
+      - name: Check changeset
+        uses: fvictorio/check-changeset@2768f4cb45ca39271acf17f0ff78a959f31f1df2
+        id: check_changeset
+        with:
+          issue-number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          body-includes: foobar
+        run: echo ${{ steps.check_changeset.outputs.comment-id }}
