@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       issues: write
-    if: contains( github.event.pull_request.labels.*.name, 'status:ready')
+    if: not(contains( github.event.pull_request.labels.*.name, 'status:ready'))
     steps:
       - uses: actions/github-script@v6
         with:
