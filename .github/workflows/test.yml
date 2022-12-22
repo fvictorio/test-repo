@@ -13,4 +13,14 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(context.issue)
+            const issue = await octokit.rest.issues.get({
+              owner: context.issue.owner,
+              repo: context.issue.repo,
+              issue_number: context.issue.number
+            });
+
+            const hasStatus = issue.data.labels.some(({ name }) =>
+              name.startsWith("status:")
+            );
+
+            console.log(hasStatus);
