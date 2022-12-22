@@ -13,4 +13,4 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(github.event.issue.labels)
+            console.log(context.event.issue.labels)
