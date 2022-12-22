@@ -1,23 +1,22 @@
+name: Label new issues
+
 on:
-  pull_request:
-    branches:
-      - main
-      - master
+  issues:
+    types: [opened]
 
 jobs:
-  test:
-    name: Comment on lint failure
+  add-to-project:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    if: contains( github.event.pull_request.labels.*.name, 'status:ready')
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - uses: actions/github-script@v6
         with:
-          ref: "refs/pull/${{ github.event.number }}/merge"
-      - name: Search comments
-        uses: peter-evans/find-comment@v2
-        id: search_comments
-        with:
-          issue-number: $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          body-includes: foobar
-      - name: Check changeset
-        run: echo ${{ steps.search_comments.outputs.comment-id }}
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["status:triaging"]
+            })
