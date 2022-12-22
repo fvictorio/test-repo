@@ -24,10 +24,9 @@ jobs:
             );
 
             if (!hasStatus) {
-              github.rest.issues.addLabels({
+              await github.rest.issues.addLabels({
                 owner: context.issue.owner,
                 repo: context.issue.repo,
-                issue_number: context.issue.number
+                issue_number: context.issue.number,
                 labels: [{ name: "status:triaging" }]
               });
-            }
