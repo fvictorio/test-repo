@@ -11,9 +11,14 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      description: A brief description of what happened and what you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Reproduction steps
+      description: Tell us the steps needed to reproduce the bug. Try to be as concise as possible: remove irrelevant code and dependencies.
     validations:
       required: true
   - type: input
