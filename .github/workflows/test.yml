@@ -3,7 +3,7 @@ name: Add label to new issue
 on:
   issues:
     types: [opened]
-  pull_request_target:
+  pull_request:
     types: [opened]
 
 jobs:
@@ -15,7 +15,6 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            console.log(context)
             const issue = await github.rest.issues.get({
               owner: context.issue.owner,
               repo: context.issue.repo,
