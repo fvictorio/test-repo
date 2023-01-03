@@ -1,10 +1,4 @@
 ---
 name: Other issue
-about: Describe this issue template's purpose here.
-title: ''
-labels: ''
-assignees: ''
-
+about: Other kind of issue. Please don't use this to ask questions.
 ---
-
-

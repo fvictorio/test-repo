@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: Do you need help?
-    url: https://google.com
-    about: Use this helpful site to get answers
+    url: https://hardhat.org/hardhat-runner/docs/guides/getting-help
+    about: Check our guide on how to get help with Hardhat
