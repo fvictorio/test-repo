@@ -19,8 +19,8 @@ body:
   - type: textarea
     id: reproduction-steps
     attributes:
-      label: "Reproduction steps"
-      description: "Tell us the steps needed to reproduce the bug. Try to be as concise as possible: remove irrelevant code and dependencies."
+      label: "Minimal reproduction steps"
+      description: "Tell us the minimal steps needed to reproduce the bug."
     validations:
       required: true
   - type: input
