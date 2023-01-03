@@ -6,7 +6,7 @@ body:
     attributes:
       label: Version of Hardhat
       description: Run `npx hardhat version` to get the version of Hardhat that you are using
-      placeholder: v.1.2.3
+      placeholder: 1.2.3
   - type: textarea
     id: what-happened
     attributes:
