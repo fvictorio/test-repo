@@ -27,4 +27,4 @@ body:
     id: search-terms
     attributes:
       label: "Search terms"
-      description: "Include the search terms you used before opening this issue. This will help others find your issue."
+      description: "Include the search terms you used before opening this issue. This will make it easier for others to find it."
