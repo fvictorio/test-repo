@@ -33,6 +33,8 @@ jobs:
               pull_number: pullNumber
             });
 
+            console.log(pull.body)
+
             const noChangesetNeededComment = pull.body
               ?.toLowerCase()
               .includes("no changeset needed");
