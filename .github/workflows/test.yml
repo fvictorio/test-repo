@@ -2,7 +2,8 @@ name: Check if PR has changeset
 
 on:
   pull_request:
-    types: [opened]
+    branches:
+      - "**"
   issue_comment:
     types: [created, edited]
 
@@ -43,7 +44,7 @@ jobs:
 
             if (noChangesetNeededComment !== undefined) {
               console.log(
-                "Comment saying that no changeset needed:",
+                "Comment saying that no changeset is needed:",
                 noChangesetNeededComment.html_url
               );
               return;
