@@ -1,4 +1,4 @@
-name: Add label to new issue
+name: Check if PR has changeset
 
 on:
   pull_request:
@@ -16,5 +16,5 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const run = require("../scripts/script.js");
+            const run = require(".github/scripts/script.js");
             await run({ github, context })
