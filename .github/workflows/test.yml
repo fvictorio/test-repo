@@ -5,14 +5,12 @@ on:
     branches:
       - "**"
   issue_comment:
-    types: [created, edited]
+    types: [created, edited, deleted]
 
 jobs:
-  label-new-issue:
+  check-if-changeset:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
+    if: ${{ github.event.issue.pull_request }}
     steps:
       - uses: actions/github-script@v6
         with:
