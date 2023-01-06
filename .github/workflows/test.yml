@@ -4,13 +4,10 @@ on:
   pull_request:
     branches:
       - "**"
-  issue_comment:
-    types: [created, edited, deleted]
 
 jobs:
   check-if-changeset:
     runs-on: ubuntu-latest
-    if: ${{ github.event.issue.pull_request }}
     steps:
       - uses: actions/github-script@v6
         with:
@@ -31,20 +28,17 @@ jobs:
               return;
             }
 
-            const { data: comments } = await github.rest.issues.listComments({
+            const { data: pull } = await github.rest.pulls.get({
               ...context.issue,
-              issue_number: pullNumber
+              pull_number: pullNumber
             });
 
-            const noChangesetNeededComment = comments.find(x =>
-              x.body?.toLowerCase().includes("no changeset needed")
-            );
+            const noChangesetNeededComment = pull.body
+              ?.toLowerCase()
+              .includes("no changeset needed");
 
-            if (noChangesetNeededComment !== undefined) {
-              console.log(
-                "Comment saying that no changeset is needed:",
-                noChangesetNeededComment.html_url
-              );
+            if (noChangesetNeededComment) {
+              console.log("The PR description says that no changeset is needed");
               return;
             }
 
