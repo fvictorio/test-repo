@@ -1,48 +1,38 @@
-name: Check if PR has changeset
+name: Add label to new issue
 
 on:
+  issues:
+    types: [opened]
   pull_request:
-    branches:
-      - "**"
+    types: [opened]
 
 jobs:
-  check-if-changeset:
+  label-new-issue:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
       - uses: actions/github-script@v6
         with:
           script: |
-            const pullNumber = context.issue.number;
-
-            const { data: files } = await github.rest.pulls.listFiles({
-              ...context.issue,
-              pull_number: pullNumber
+            const issue = await github.rest.issues.get({
+              owner: context.issue.owner,
+              repo: context.issue.repo,
+              issue_number: context.issue.number
             });
 
-            const changeset = files.find(
-              file => file.status === "added" && file.filename.startsWith(".changeset/")
+            const statusLabel = issue.data.labels.find(({ name }) =>
+              name.startsWith("status:")
             );
 
-            if (changeset !== undefined) {
-              console.log("Changeset found:", changeset.filename);
-              return;
+            if (statusLabel === undefined) {
+              await github.rest.issues.addLabels({
+                owner: context.issue.owner,
+                repo: context.issue.repo,
+                issue_number: context.issue.number,
+                labels: ["status:triaging"]
+              });
+            } else {
+              console.log(`Issue already has a status: ${statusLabel.name}`);
             }
-
-            const { data: pull } = await github.rest.pulls.get({
-              ...context.issue,
-              pull_number: pullNumber
-            });
-
-            console.log(pull.body)
-
-            const noChangesetNeededComment = pull.body
-              ?.toLowerCase()
-              .includes("no changeset needed");
-
-            if (noChangesetNeededComment) {
-              console.log("The PR description says that no changeset is needed");
-              return;
-            }
-
-            console.error("No changeset found");
-            process.exit(1);
