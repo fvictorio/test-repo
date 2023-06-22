@@ -22,13 +22,12 @@ jobs:
               issue_number: context.issue.number
             });
 
-            const isCollaborator = ["OWNER", "MEMBER", "COLLABORATOR"].includes(issue.author_association)
-
             const statusLabel = issue.data.labels.find(({ name }) =>
               name.startsWith("status:")
             );
 
             if (statusLabel === undefined) {
+              const isCollaborator = ["OWNER", "MEMBER", "COLLABORATOR"].includes(issue.data.author_association)
               const label = isCollaborator ? "status:ready" : "status:triaging"
 
               await github.rest.issues.addLabels({
