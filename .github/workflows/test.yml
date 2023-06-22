@@ -22,6 +22,9 @@ jobs:
               issue_number: context.issue.number
             });
 
+            console.log("owner", context.issue.owner)
+            console.log(context.issue)
+
             const statusLabel = issue.data.labels.find(({ name }) =>
               name.startsWith("status:")
             );
