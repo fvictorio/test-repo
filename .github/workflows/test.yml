@@ -1,4 +1,4 @@
-name: Add label to new issue
+name: Run script
 
 on:
   push:
@@ -6,8 +6,28 @@ on:
       - '**'
 
 jobs:
-  label-new-issue:
+  run-script-ubuntu:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run script
+        run: |
+          chmod +x test.sh
+          ./test.sh
+        shell:
+          bash
+  run-script-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run script
+        run: |
+          chmod +x test.sh
+          ./test.sh
+        shell:
+          bash
+  run-script-windows:
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run script
