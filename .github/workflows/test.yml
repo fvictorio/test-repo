@@ -3,7 +3,7 @@ name: Add label to new issue
 on:
   push:
     branches:
-      - **
+      - '**'
 
 jobs:
   label-new-issue:
