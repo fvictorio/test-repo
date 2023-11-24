@@ -1,5 +1,7 @@
 set -e
+set -x
 
+pwd
 echo foo
 true
 echo bar
