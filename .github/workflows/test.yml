@@ -15,8 +15,10 @@ on:
 jobs:
   check_commit:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'fvictorio' }}
     steps:
+      - name: Print author association
+        run: |
+          echo "Author association: ${{ github.event.pull_request.author_association }} "
       - name: Checkout
         uses: actions/checkout@v4
         with:
