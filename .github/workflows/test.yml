@@ -1,38 +1,48 @@
 name: Run script
 
+permissions:
+  contents: write
+  id-token: write
 on:
   push:
     branches:
-      - '**'
+      - main
+    tags-ignore:
+      - "**"
+  workflow_dispatch:
 
 jobs:
-  run-script-ubuntu:
+  job-1:
     runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'NomicFoundation' }}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Check if commit message is a release commit
+        id: check_commit
+        # Must match commit check in publish step
+        run: |
+          if git log -1 --pretty=%B | grep "^edr-[0-9]\+\.[0-9]\+\.[0-9]\+";
+          then
+            echo "Check commit: matches"
+            echo "match=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Check commit: no match"
+            echo "match=false" >> "$GITHUB_OUTPUT"
+          fi
+    outputs:
+      match: ${{ steps.check_commit.outputs.match }}
+  job-2:
+    name: Echo publish
+    runs-on: ubuntu-latest
+    needs:
+      - check_commit
+    if: ${{ needs.check_commit.outputs.match == 'true' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/edr/release') }}
+    steps:
       - name: Run script
         run: |
-          chmod +x test.sh
-          ./test.sh
-        shell:
-          bash
-  run-script-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run script
-        run: |
-          chmod +x test.sh
-          ./test.sh
-        shell:
-          bash
-  run-script-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run script
-        run: |
-          chmod +x test.sh
-          ./test.sh
+          echo "Publish"
         shell:
           bash
