@@ -1,0 +1,12 @@
+{
+  "name": "test-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "bash test.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
