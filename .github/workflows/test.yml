@@ -15,4 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "test" $GITHUB_REF
+          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
+            echo "This is the main branch"
+          else
+            echo "This is not the main branch"
+          fi
