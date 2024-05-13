@@ -15,8 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          if [ "$GITHUB_REF" == "refs/heads/main" ]; then
-            echo "This is the main branch"
-          else
-            echo "This is not the main branch"
+          if git log -1 --pretty=%B | grep "^edr-[0-9]\+\.[0-9]\+\.[0-9]\+\s*"; then
+            if [ "$GITHUB_REF" == "refs/heads/main" ]; then
+              echo "Publish release"
+            else
+              echo "Release commit in non-main branch"
+              exit 1
+            fi
+          elif git log -1 --pretty=%B | grep "^test-[0-9]\+\.[0-9]\+\.[0-9]\+-"; then
+            echo "Publish pre-release"
           fi
