@@ -12,6 +12,7 @@ on:
 jobs:
   run-test:
     name: Test
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo "test"
