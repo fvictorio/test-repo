@@ -26,4 +26,7 @@ jobs:
               echo "Release commit in non-main branch"
               exit 1
             fi
+          else
+            echo "No version tag"
+            exit 1
           fi
