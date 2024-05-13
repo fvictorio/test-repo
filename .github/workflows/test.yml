@@ -24,6 +24,6 @@ jobs:
               echo "Release commit in non-main branch"
               exit 1
             fi
-          elif git log -1 --pretty=%B | grep "^test-[0-9]\+\.[0-9]\+\.[0-9]\+-"; then
+          elif git log -1 --pretty=%B | grep "^edr-[0-9]\+\.[0-9]\+\.[0-9]\+-"; then
             echo "Publish pre-release"
           fi
