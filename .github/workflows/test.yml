@@ -25,4 +25,4 @@ jobs:
         run: |
           echo ${COUNT}
           echo ${{ strategy.job-index }}
-          echo ${{ strategy.job-total }}
+          test ${{ strategy.job-total }} -eq ${COUNT}
