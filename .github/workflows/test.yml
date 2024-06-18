@@ -1,7 +1,7 @@
 name: Test
 
 env:
-  ARR: ("foo" "bar" "baz")
+  COUNT: 3
 
 on:
   push:
@@ -23,6 +23,6 @@ jobs:
       - name: Run
         shell: bash
         run: |
-          echo ${#ARR[@]}
+          echo ${COUNT}
           echo ${{ strategy.job-index }}
           echo ${{ strategy.job-total }}
