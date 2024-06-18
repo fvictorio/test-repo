@@ -1,5 +1,8 @@
 name: Test
 
+env:
+  ARR: ("foo" "bar" "baz)
+
 on:
   push:
     branches:
@@ -10,9 +13,14 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    matrix:
+      settings:
+        - a: 1
+        - a: 2
+        - a: 3
     steps:
-      - name: Sleep
+      - name: Run
         run: |
-          echo "Sleeping for 60 seconds"
-          sleep 60
-          echo "Done"
+          echo ${#ARR[@]}
+          echo ${{ strategy.job-index }}
+          echo ${{ strategy.job-total }}
