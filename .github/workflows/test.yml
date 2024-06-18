@@ -1,7 +1,7 @@
 name: Test
 
 env:
-  ARR: ("foo" "bar" "baz)
+  ARR: ("foo" "bar" "baz")
 
 on:
   push:
