@@ -13,11 +13,12 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    matrix:
-      settings:
-        - a: 1
-        - a: 2
-        - a: 3
+    strategy:
+      matrix:
+        settings:
+          - a: 1
+          - a: 2
+          - a: 3
     steps:
       - name: Run
         run: |
