@@ -1,29 +1,18 @@
-name: Test
-
-env:
-  COUNT: 3
+name: hardhat-core CI
 
 on:
   push:
     branches:
       - main
-  pull_request: null
+  workflow_dispatch:
 
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        settings:
-          - a: 1
-          - a: 2
-          - a: 3
-          - a: 4
     steps:
-      - name: Run
-        shell: bash
-        run: |
-          echo ${COUNT}
-          echo ${{ strategy.job-index }}
-          test ${{ strategy.job-total }} -eq ${COUNT}
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
